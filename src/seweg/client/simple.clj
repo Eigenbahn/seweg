@@ -1,26 +1,26 @@
 (ns seweg.client.simple
   (:require
-    [clojure.core.async :as a :refer [go <!! <! go-loop take! put! alts!! chan]]
-    [clojure.network.l3.ip :as ip :refer (make-ip-address make-network)]
-    [seweg.protocols
-     [snmp :as s :refer [compose-snmp-packet
-                         decompose-snmp-response
-                         open-line
-                         get-variable-bindings
-                         snmp-template
-                         get-new-rid
-                         make-table]]]
-    [seweg.protocols.snmp.oid-repository :refer [normalize-oid is-child-of-oid? find-oid]]
-    [seweg.protocols.snmp.values-repository :refer [get-known-value]]
-    [seweg.coders.snmp :refer [snmp-encode snmp-decode]])
+   [clojure.core.async :as a :refer [go <!! <! go-loop take! put! alts!! chan]]
+   [clojure.network.ip :as ip :refer (make-ip-address make-network)]
+   [seweg.protocols
+    [snmp :as s :refer [compose-snmp-packet
+                        decompose-snmp-response
+                        open-line
+                        get-variable-bindings
+                        snmp-template
+                        get-new-rid
+                        make-table]]]
+   [seweg.protocols.snmp.oid-repository :refer [normalize-oid is-child-of-oid? find-oid]]
+   [seweg.protocols.snmp.values-repository :refer [get-known-value]]
+   [seweg.coders.snmp :refer [snmp-encode snmp-decode]])
   (:import
-    [java.net
-     SocketTimeoutException
-     SocketException
-     DatagramPacket
-     DatagramSocket
-     InetAddress]
-    [ber BERUnit]))
+   [java.net
+    SocketTimeoutException
+    SocketException
+    DatagramPacket
+    DatagramSocket
+    InetAddress]
+   [ber BERUnit]))
 
 
 (def ^{:dynamic true} *timeout* 2000)
@@ -294,4 +294,3 @@
               (catch SocketException e @result)
               (catch Exception e (do
                                    (.printStackTrace e))))))))))
-
